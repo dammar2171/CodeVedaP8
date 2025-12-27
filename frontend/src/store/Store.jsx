@@ -27,8 +27,6 @@ const noteReducer = (state, action) => {
 
 const StoreContextProvider = ({ children }) => {
   const [notes, dispatch] = useReducer(noteReducer, []);
-  const [signupData, setSignupData] = useState({});
-  const [loginData, setLoginData] = useState({});
   const [selectedNote, setSelectedNote] = useState(null);
   const handleAddNotes = (title, detail) => {
     const addNotes = {
@@ -62,14 +60,11 @@ const StoreContextProvider = ({ children }) => {
     <StoreContext.Provider
       value={{
         notes,
-        signupData,
         selectedNote,
         setSelectedNote,
         handleUpdateNotes,
         handleDeleteNotes,
         handleAddNotes,
-        setSignupData,
-        setLoginData,
       }}
     >
       {children}

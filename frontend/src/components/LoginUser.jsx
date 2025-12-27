@@ -1,29 +1,32 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 import "../css/LoginUser.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import { StoreContext } from "../store/Store";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const LoginUser = () => {
-  const { setLoginData, signupData } = useContext(StoreContext);
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
 
-  const handleLoginForm = (e) => {
+  const handleLoginForm = async (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    setLoginData({ email, password });
+    const response = await axios.post(
+      "http://localhost:5000/user/loginUser",
+      {
+        email,
+        password,
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    localStorage.setItem("token", response.data.token);
 
-    console.log("signup email:", signupData.email);
-    console.log("signup password:", signupData.password);
-
-    if (signupData.email == email && signupData.password == password) {
-      alert("sucessfully logged In");
-      navigate("/create");
-      emailRef.current.value = "";
-      passwordRef.current.value = "";
-    }
+    alert("sucessfully logged In");
+    navigate("/create");
+    emailRef.current.value = "";
+    passwordRef.current.value = "";
   };
   return (
     <div className="login-card">

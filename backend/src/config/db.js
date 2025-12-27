@@ -1,11 +1,14 @@
 import mysql from "mysql2";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const db= mysql.createConnection({
-  host:process.env.PORT,
+  host:process.env.DB_HOST,
   user:process.env.DB_USERNAME,
   password:process.env.DB_PASSWORD,
   database:process.env.DB_NAME,
-  xampp_port:process.env.XAMPP_PORT,
+  port:process.env.XAMPP_PORT,
 });
 
 db.connect((err)=>{

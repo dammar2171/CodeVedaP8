@@ -2,9 +2,8 @@ import { useContext, useRef, useState } from "react";
 import "../css/SignupUser.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import WrongAlert from "./WrongAlert";
-import { StoreContext } from "../store/Store";
+import axios from "axios";
 const SignupUser = () => {
-  const { setSignupData } = useContext(StoreContext);
   const fullnameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -13,7 +12,7 @@ const SignupUser = () => {
 
   const [alertWrong, setAlertWrong] = useState(null);
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
 
     const fullname = fullnameRef.current.value;
@@ -22,7 +21,11 @@ const SignupUser = () => {
     const confirmPsd = confirmPsdRef.current.value;
 
     if (password === confirmPsd) {
-      setSignupData({ fullname, email, password });
+      await axios.post("http://localhost:5000/user/signupUser", {
+        fullname,
+        email,
+        password,
+      });
       alert("Account created sucessfully");
       navigate("/");
     } else {
