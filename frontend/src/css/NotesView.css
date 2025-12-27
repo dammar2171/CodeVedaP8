@@ -1,0 +1,96 @@
+.notes-list {
+  width: 80%;
+  display:flex;
+  flex-direction: column;
+  gap: 20px;
+  margin:0 auto;
+}
+
+.notes-card {
+  background: #020617;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.notes-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(56, 189, 248, 0.25);
+}
+
+.notes-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #38bdf8;
+  margin-bottom: 10px;
+}
+
+.notes-card p {
+  font-size: 0.95rem;
+  color: #cbd5f5;
+  line-height: 1.6;
+  max-height: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.btn-group {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-group button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: capitalize;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-group button:first-child {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #022c22;
+}
+
+.btn-group button:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.35);
+}
+
+.btn-group button:last-child {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #450a0a;
+}
+
+.btn-group button:last-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+}
+
+.btn-group button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 480px) {
+  .notes-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .notes-card p {
+    font-size: 0.9rem;
+  }
+   .btn-group {
+    justify-content: space-between;
+  }
+
+  .btn-group button {
+    flex: 1;
+  }
+}
