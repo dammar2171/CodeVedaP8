@@ -1,6 +1,26 @@
+import { useContext, useEffect, useState } from "react";
 import "../css/NotesUpdateModal.css";
-const NotesUpdateModal = ({ isOpen, onClose }) => {
+import { StoreContext } from "../store/Store";
+
+const NotesUpdateModal = ({ isOpen, setOpen }) => {
+  const { selectedNote, handleUpdateNotes } = useContext(StoreContext);
+
+  const [title, setTitle] = useState("");
+  const [detail, setDetail] = useState("");
+
+  useEffect(() => {
+    if (selectedNote) {
+      setTitle(selectedNote.title);
+      setDetail(selectedNote.detail);
+    }
+  }, [selectedNote]);
+
   if (!isOpen) return null;
+
+  const handleUpdate = () => {
+    handleUpdateNotes(selectedNote.title, title, detail);
+    setOpen(false);
+  };
 
   return (
     <div className="modal-overlay">
@@ -8,16 +28,21 @@ const NotesUpdateModal = ({ isOpen, onClose }) => {
         <h2>Update Note</h2>
 
         <label>Title</label>
-        <input type="text" placeholder="Update title" />
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
 
         <label>Description</label>
-        <textarea placeholder="Update your note..."></textarea>
+        <textarea
+          value={detail}
+          onChange={(e) => setDetail(e.target.value)}
+        ></textarea>
 
         <div className="modal-actions">
-          <button className="btn-cancel" onClick={onClose}>
+          <button className="btn-cancel" onClick={() => setOpen(false)}>
             Cancel
           </button>
-          <button className="btn-update">Update</button>
+          <button className="btn-update" onClick={handleUpdate}>
+            Update
+          </button>
         </div>
       </div>
     </div>

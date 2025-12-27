@@ -1,20 +1,34 @@
+import { useContext } from "react";
 import "../css/NotesView.css";
+import { StoreContext } from "../store/Store";
 const NotesView = ({ setOpen }) => {
+  const { notes, handleDeleteNotes, setSelectedNote } =
+    useContext(StoreContext);
+
+  const handleUpdateBtn = (note) => {
+    setSelectedNote(note);
+    setOpen(true);
+  };
   return (
     <div className="notes-list">
-      <div className="notes-card">
-        <h3>Title</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse ea,
-          quaerat corporis sequi dolor repellendus. Eaque officia atque magni
-          vel saepe recusandae cumque, in cupiditate, voluptas explicabo maiores
-          error rerum.
-        </p>
-        <div className="btn-group">
-          <button onClick={() => setOpen(true)}>update</button>
-          <button>delete</button>
+      {notes.map((item, index) => (
+        <div className="notes-card" key={index}>
+          <h3>{item.title}</h3>
+          <p>{item.detail}</p>
+          <div className="btn-group">
+            <button onClick={() => handleUpdateBtn(item)}>update</button>
+            <button onClick={() => handleDeleteNotes(item.title)}>
+              delete
+            </button>
+          </div>
         </div>
-      </div>
+      ))}
+
+      {notes.length === 0 && (
+        <div className="notes-card">
+          <h1 className="text-danger text-center">Empty notes</h1>
+        </div>
+      )}
     </div>
   );
 };

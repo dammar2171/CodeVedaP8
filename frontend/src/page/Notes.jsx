@@ -9,7 +9,7 @@ const Notes = () => {
     <Container>
       <Heading headingValue={"Your secure notes here..."} />
       <NotesView setOpen={setOpen} />
-      <NotesUpdateModal isOpen={open} />
+      <NotesUpdateModal isOpen={open} setOpen={setOpen} />
     </Container>
   );
 };
