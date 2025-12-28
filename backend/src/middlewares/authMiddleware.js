@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 const authMiddleware=(req,res,next)=>{
   const authHeader = req.headers.authorization;
   if(!authHeader){
-    return res.status(400).json({message:"Token not found"});
+    return res.status(400).json({message:"Authorization header missing or invalid"});
   }
 
   const token = authHeader.split(" ")[1];
@@ -12,7 +12,7 @@ const authMiddleware=(req,res,next)=>{
     req.user = decoded;
     next();
   } catch (error) {
-    return res.status(401).json({message:"Token not found"});
+    return res.status(401).json({message:"Invalid or expired token"});
   }
 }
 export default authMiddleware;

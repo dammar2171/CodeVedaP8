@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import userRoute from "./src/routes/userRoute.js"
+import notesRoute from "./src/routes/notesRoute.js";
 import cors from "cors";
 
 dotenv.config();
@@ -15,11 +16,12 @@ app.use(cors({
 app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
-app.get("/user",(req,res)=>{
+app.get("/notes",(req,res)=>{
   res.send("server running sucessfully");
 })
 
 app.use("/user", userRoute);
+app.use("/notes", notesRoute);
 
 app.listen(PORT,()=>{
   console.log(`Server is running on ${PORT}`);

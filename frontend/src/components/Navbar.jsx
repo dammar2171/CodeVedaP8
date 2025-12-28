@@ -1,7 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "../css/Navbar.css";
+import { useContext } from "react";
+import { StoreContext } from "../store/Store";
 
 const Navbar = () => {
+  const { authenticated } = useContext(StoreContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const hanndleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <nav className="navbar">
       <div className="navbar-logo">SecureNotes</div>
@@ -15,6 +24,15 @@ const Navbar = () => {
         <li>
           <NavLink to="/">Login</NavLink>
         </li>
+        {authenticated &&
+          location.pathname !== "/" &&
+          location.pathname !== "/signup" && (
+            <li>
+              <button className="btn btn-danger" onClick={hanndleLogout}>
+                Logout
+              </button>
+            </li>
+          )}
       </ul>
     </nav>
   );

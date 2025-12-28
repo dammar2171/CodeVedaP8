@@ -3,7 +3,10 @@ import "../css/LoginUser.css";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import { StoreContext } from "../store/Store";
 const LoginUser = () => {
+  const { setAuthenticated } = useContext(StoreContext);
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
@@ -21,10 +24,15 @@ const LoginUser = () => {
       },
       { headers: { "Content-Type": "application/json" } }
     );
-    localStorage.setItem("token", response.data.token);
+    const { token } = response.data;
 
-    alert("sucessfully logged In");
-    navigate("/create");
+    if (token) {
+      localStorage.setItem("token", token);
+      alert("sucessfully logged In");
+      navigate("/create");
+    } else {
+      alert("login failed!");
+    }
     emailRef.current.value = "";
     passwordRef.current.value = "";
   };

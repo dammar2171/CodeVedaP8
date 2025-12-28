@@ -8,14 +8,29 @@ import Navbar from "./components/Navbar";
 import Login from "./page/Login";
 import Signup from "./page/Signup";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <StoreContextProvider>
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/create" element={<Home />} />
-          <Route path="/notes" element={<Notes />} />
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notes"
+            element={
+              <ProtectedRoute>
+                <Notes />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/" element={<Login />} />
           <Route path="signup" element={<Signup />} />
         </Routes>

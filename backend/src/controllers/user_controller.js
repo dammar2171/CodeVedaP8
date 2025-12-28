@@ -21,7 +21,6 @@ export const signupUser= async(req,res)=>{
 
 export const loginUser= (req,res)=>{
   const {email,password}=req.body;
-  console.log(email);
   
   const sql = "SELECT * FROM USER WHERE email=?";
 
@@ -45,7 +44,7 @@ export const loginUser= (req,res)=>{
    }
    
    const token = jwt.sign(
-    {name:response.fullname,email:response.email},
+    {id:response.id,email:response.email},
     process.env.JWT_SECRET,
     {expiresIn:"1h"},
    )
