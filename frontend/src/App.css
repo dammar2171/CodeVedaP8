@@ -7,7 +7,6 @@
 /* css for Container component */
 .container-fluid {
   width: 100%;
-  min-height: 100vh;
   padding: 30px 40px;
   background-color: #0f172a; 
   display: flex;

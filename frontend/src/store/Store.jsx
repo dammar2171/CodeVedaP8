@@ -32,6 +32,20 @@ const StoreContextProvider = ({ children }) => {
   const [notes, dispatch] = useReducer(noteReducer, []);
   const [selectedNote, setSelectedNote] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
+  const [openSearchModal, setOpenSearchModal] = useState(false);
+  const [searchedNote, setSearchedNote] = useState("");
+  const [search, setSearch] = useState(null);
+
+  useEffect(() => {
+    if (!search) {
+      setSearch(notes);
+    } else {
+      const filtered = notes.filter((item) =>
+        item.title.toLowerCase().includes(searchedNote.toLowerCase())
+      );
+      setSearch(filtered);
+    }
+  }, [searchedNote, notes]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -125,6 +139,10 @@ const StoreContextProvider = ({ children }) => {
         notes,
         authenticated,
         selectedNote,
+        openSearchModal,
+        search,
+        setSearchedNote,
+        setOpenSearchModal,
         setSelectedNote,
         handleUpdateNotes,
         handleDeleteNotes,
