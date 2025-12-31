@@ -48,10 +48,7 @@ const StoreContextProvider = ({ children }) => {
   }, [searchedNote, notes]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setAuthenticated(true);
-    }
+    setAuthenticated(!!localStorage.getItem("token"));
   }, []);
 
   const authHeader = () => ({
@@ -114,24 +111,22 @@ const StoreContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchNotes = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!authenticated) {
+        dispatch({ type: "SET_NOTES", payload: [] });
+        return;
+      }
       try {
         const res = await axios.get(
           "http://localhost:5000/notes/getNotes",
           authHeader()
         );
-
-        dispatch({
-          type: "SET_NOTES",
-          payload: res.data.result,
-        });
+        dispatch({ type: "SET_NOTES", payload: res.data.result });
       } catch (error) {
         console.log("Fetching Error:", error);
       }
     };
     fetchNotes();
-  }, []);
+  }, [authenticated]);
 
   return (
     <StoreContext.Provider
@@ -141,6 +136,7 @@ const StoreContextProvider = ({ children }) => {
         selectedNote,
         openSearchModal,
         search,
+        dispatch,
         setSearchedNote,
         setOpenSearchModal,
         setSelectedNote,

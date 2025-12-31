@@ -28,6 +28,7 @@ const LoginUser = () => {
 
     if (token) {
       localStorage.setItem("token", token);
+      setAuthenticated(true);
       alert("sucessfully logged In");
       navigate("/create");
     } else {
