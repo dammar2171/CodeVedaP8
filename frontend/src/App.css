@@ -7,6 +7,7 @@
 /* css for Container component */
 .container-fluid {
   width: 100%;
+  min-height: 80vh;
   padding: 30px 40px;
   background-color: #0f172a; 
   display: flex;
@@ -68,7 +69,7 @@
 
 @media (max-width: 480px) {
   .footer-links {
-    flex-direction: column;
+    flex-direction:row;
     gap: 10px;
   }
 }

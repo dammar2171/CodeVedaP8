@@ -110,6 +110,8 @@ const StoreContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log(authenticated);
+
     const fetchNotes = async () => {
       if (!authenticated) {
         dispatch({ type: "SET_NOTES", payload: [] });
@@ -125,7 +127,10 @@ const StoreContextProvider = ({ children }) => {
         console.log("Fetching Error:", error);
       }
     };
-    fetchNotes();
+    if (authenticated) {
+      fetchNotes();
+      console.log("fetch note called");
+    }
   }, [authenticated]);
 
   return (

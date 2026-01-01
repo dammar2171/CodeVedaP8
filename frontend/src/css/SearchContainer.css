@@ -2,6 +2,7 @@
 .search-container form{
   width: 700px;
   display: flex;
+  margin-left: 4rem;
 }
 .search-container form input::placeholder {
 color: #0ea5e9;
@@ -35,6 +36,7 @@ color: #0ea5e9;
 @media(max-width:756px){
   .search-container form{
     width: 500px;
+    margin: 0;
   }
   .heading-container {
         padding: 10px 0 0 0;

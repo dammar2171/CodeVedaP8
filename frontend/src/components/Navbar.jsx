@@ -4,11 +4,13 @@ import { useContext } from "react";
 import { StoreContext } from "../store/Store";
 
 const Navbar = () => {
-  const { authenticated, dispatch } = useContext(StoreContext);
+  const { authenticated, dispatch, setAuthenticated } =
+    useContext(StoreContext);
   const location = useLocation();
   const navigate = useNavigate();
   const hanndleLogout = () => {
     localStorage.removeItem("token");
+    setAuthenticated(false);
     navigate("/");
     dispatch({ type: "SET_NOTES", payload: [] });
   };

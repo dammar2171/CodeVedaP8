@@ -82,6 +82,9 @@
   .notes-card h3 {
     font-size: 1.05rem;
   }
+  .notes-card {
+    padding: 70px 20px;
+  }
 
   .notes-card p {
     font-size: 0.9rem;
